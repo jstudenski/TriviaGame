@@ -23,6 +23,10 @@ var questions = [
 ];
 
 
+$('button').click( function(){
+  console.log(this.id);
+});
+
 
 
 function generateHTML(q) {
@@ -30,20 +34,23 @@ function generateHTML(q) {
   // console.log(questions[q].guesses)
   $("#question").html(questions[q].question);
 
-
-
   // console.log(questions[q].guesses.length);
   $("#guesses").html('');
   for(i=1; i < questions[q].guesses.length+1; i++){
+
     // console.log(questions[q].guesses[i-1]);
+    var button = $("#guesses")
+
     $("#guesses").append(questions[q].guesses[i-1]+'<br>');
 
   }
 
-
 }
+var currentQ = 0;
 
-generateHTML(1);
+generateHTML(currentQ);
+currentQ++
+generateHTML(currentQ);
 
 
 var number = 30;
