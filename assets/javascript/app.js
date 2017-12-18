@@ -1,8 +1,8 @@
 window.onload = function() {
-
-var correct;
-var incorrect;
-var incomplete;
+// Score
+var correct = 0;
+var incorrect = 0;
+var incomplete = 0;
 
 var questions = [
   {
@@ -22,73 +22,103 @@ var questions = [
   }
 ];
 
-
-$('button').click( function(){
-  console.log(this.id);
-});
-
-
-
-function generateHTML(q) {
-
-  // console.log(questions[q].guesses)
-  $("#question").html(questions[q].question);
-
-  // console.log(questions[q].guesses.length);
-  $("#guesses").html('');
-  for(i=1; i < questions[q].guesses.length+1; i++){
-
-    // console.log(questions[q].guesses[i-1]);
-    var button = $("#guesses")
-
-    $("#guesses").append(questions[q].guesses[i-1]+'<br>');
-
-  }
-
-}
-var currentQ = 0;
-
-generateHTML(currentQ);
-currentQ++
-generateHTML(currentQ);
-
-
-var number = 30;
+// Timer stuff
+var number;
 var intervalId;
 
 
-$("#pause").on("click", pause);
-$("#resume").on("click", run);
+
+function newQuestion(q) {
+  // start timer
+  startTimer();
+
+  $("#question").html(questions[q].question);
+
+  for(i=1; i < questions[q].guesses.length+1; i++){
+    var btn = $("<button>");
+   //  btn.addClass("guess");
+    btn.attr("data-guess", questions[q].guesses[i-1]);
+    btn.text(questions[q].guesses[i-1]);
+    btn.click(checkGuess);
+    $("#guesses").append(btn);
+  }
+
+}
+
+var currentQ = 0;
+newQuestion(currentQ);
 
 
-function run() {
+function checkGuess() {
+  var userGuess = $(this).attr("data-guess");
+  if (userGuess === questions[currentQ].answer) {
+    displayResult('correct');
+  } else {
+    displayResult('incorrect');
+  }
+}
+
+
+function displayResult(status){
+  $("#question").html('');
+  $("#guesses").html('');
+
+  if (status === 'correct') {
+    correct++;
+
+    $("#status").html('Correct');
+
+  } else if (status === 'incorrect') {
+    incorrect++;
+
+    $("#status").html('Nope!');
+    $("#status").append('<br>The correct guess was: ' + questions[currentQ].answer);
+
+  } else {
+    incomplete++;
+
+    $("#status").html('Out of Time!');
+    $("#status").append('<br>The correct guess was: ' + questions[currentQ].answer);
+    
+  }
+  clearInterval(intervalId);
+
+  setTimeout(function(){
+    // console.log("INIT");
+    $("#status").html('');
+    //console.log(questions.length-1);
+    // console.log(currentQ);
+
+    if (currentQ < questions.length-1) {
+      newQuestion(++currentQ);
+    } else {
+      $("#status").html('Game is Over..');
+      $("#status").append('<br>Correct: ' + correct);
+      $("#status").append('<br>Incorrect: ' + incorrect);
+      $("#status").append('<br>Incomplete: ' + incomplete);
+    }
+
+  }, 1000);
+
+}
+
+function startTimer() {
+ number = 30; 
  intervalId = setInterval(decrement, 1000);
 }
 
 function decrement() {
-
   number--;
-
-  $("#show-number").html("<h2>" + number + "</h2>");
-
+  $("#countdown").html(number);
   if (number === 0) {
-    stop();
-    console.log("Time Up!!!!!!");
+    clearInterval(intervalId);
+    displayResult('timeup');
   }
-
-}
-
-
-function pause() {
-  //  Clears our intervalId
-  //  We just pass the name of the interval
-  //  to the clearInterval function.
-  clearInterval(intervalId);
 }
 
 
 
-run();
+
 
 
 

@@ -8,3 +8,7 @@
 #question {
   text-align: center;
 }
+
+#countdown {
+  display: inline;
+}
