@@ -1,4 +1,5 @@
 window.onload = function() {
+
 // Score
 var correct = 0;
 var incorrect = 0;
@@ -34,11 +35,11 @@ function newQuestion(q) {
 
   $("#question").html(questions[q].question);
 
-  for(i=1; i < questions[q].guesses.length+1; i++){
+  for(i=0; i < questions[q].guesses.length; i++){
     var btn = $("<button>");
    //  btn.addClass("guess");
-    btn.attr("data-guess", questions[q].guesses[i-1]);
-    btn.text(questions[q].guesses[i-1]);
+    btn.attr("data-guess", questions[q].guesses[i]);
+    btn.text(questions[q].guesses[i]);
     btn.click(checkGuess);
     $("#guesses").append(btn);
   }
@@ -74,7 +75,7 @@ function displayResult(status){
     $("#status").html('Nope!');
     $("#status").append('<br>The correct guess was: ' + questions[currentQ].answer);
 
-  } else {
+  } else if (status === 'timeup') {
     incomplete++;
 
     $("#status").html('Out of Time!');
@@ -84,10 +85,7 @@ function displayResult(status){
   clearInterval(intervalId);
 
   setTimeout(function(){
-    // console.log("INIT");
     $("#status").html('');
-    //console.log(questions.length-1);
-    // console.log(currentQ);
 
     if (currentQ < questions.length-1) {
       newQuestion(++currentQ);
@@ -98,7 +96,7 @@ function displayResult(status){
       $("#status").append('<br>Incomplete: ' + incomplete);
     }
 
-  }, 1000);
+  }, 3000);
 
 }
 
