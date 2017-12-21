@@ -1,4 +1,8 @@
+// add new game button at the
+
 window.onload = function() {
+
+var startGame = false;
 
 // Score
 var correct = 0;
@@ -26,41 +30,75 @@ var questions = [
 // Timer stuff
 var number;
 var intervalId;
-
-
+var currentQ = 0;
 
 function newQuestion(q) {
-  // start timer
-  startTimer();
 
-  $("#question").html(questions[q].question);
+  if (startGame === false) {
+    $("#time-remaining").hide();
 
-  for(i=0; i < questions[q].guesses.length; i++){
     var btn = $("<button>");
-   //  btn.addClass("guess");
-    btn.attr("data-guess", questions[q].guesses[i]);
-    btn.text(questions[q].guesses[i]);
-    btn.click(checkGuess);
+    btn.text("Start");
+    btn.click(newGame);
+
     $("#guesses").append(btn);
-  }
 
+  } else {
+    $("#time-remaining").show();
+
+    startTimer();
+
+    $("#question").html(questions[q].question);
+
+    for(i=0; i < questions[q].guesses.length; i++){
+      var btn = $("<button>");
+     //  btn.addClass("guess");
+      btn.attr("data-guess", questions[q].guesses[i]);
+      btn.text(questions[q].guesses[i]);
+      btn.click(checkGuess);
+      $("#guesses").append(btn);
+    }
+
+  };
+};
+
+
+
+
+
+function test(){
+  console.log("123");
 }
+// var myVar;
 
-var currentQ = 0;
-newQuestion(currentQ);
+// function myFunction() {
+//     myVar = setTimeout(alertFunc, 3000);
+// }
+
+// function alertFunc() {
+//     alert("Hello!");
+// }
+
+
+
+
+function newGame() {
+  startGame = true;
+  currentQ = 0;
+  $(this).hide();
+  newQuestion(currentQ);
+};
 
 
 function checkGuess() {
-  var userGuess = $(this).attr("data-guess");
-  if (userGuess === questions[currentQ].answer) {
-    displayResult('correct');
-  } else {
-    displayResult('incorrect');
-  }
+
+  ($(this).attr("data-guess") === questions[currentQ].answer) ? displayResult('correct') : displayResult('incorrect');
 }
 
 
 function displayResult(status){
+  clearInterval(intervalId);
+
   $("#question").html('');
   $("#guesses").html('');
 
@@ -82,8 +120,7 @@ function displayResult(status){
     $("#status").append('<br>The correct guess was: ' + questions[currentQ].answer);
     
   }
-  clearInterval(intervalId);
-
+ 
   setTimeout(function(){
     $("#status").html('');
 
@@ -100,25 +137,30 @@ function displayResult(status){
 
 }
 
+
+
+
+
 function startTimer() {
- number = 30; 
+ number = 10; 
+ decrement();
  intervalId = setInterval(decrement, 1000);
 }
 
 function decrement() {
-  number--;
+  console.log(number);
   $("#countdown").html(number);
-  if (number === 0) {
+  number--
+
+  if (number < 0) {
     clearInterval(intervalId);
     displayResult('timeup');
   }
+
+
 }
 
-
-
-
-
-
+newQuestion();
 
 
 } // window.onload
