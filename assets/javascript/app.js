@@ -9,21 +9,48 @@ var correct = 0;
 var incorrect = 0;
 var incomplete = 0;
 
+
+
 var questions = [
   {
-    "question":"What is 1 + 1",
-    "guesses":["one","two","three","four"],
-    "answer":"two"
+    "question":"Who created of the now-famous chopped and screwed DJ technique?",
+    "guesses":["Dj Khaled","DJ Green Lantern","DJ Screw","Dj Drama"],
+    "answer":"DJ Screw"
   },
   {
-    "question":"Fav Color",
-    "guesses":["Red","Blue","Yellow","Black"],
-    "answer":"Black"
+    "question":"Who was the top selling artist of the 2000's?",
+    "guesses":["Lil Wayne","Eminem","Jay Z","Kanye West"],
+    "answer":"Eminem"
   },
   {
-    "question":"Birth Year",
-    "guesses":["1991","2000","1995","1899"],
-    "answer":"1991"
+    "question":"Which member of UGK passed away in 2007?",
+    "guesses":["Pimp C","Bun B","Andre 3000","Slim Thug"],
+    "answer":"Pimp C"
+  },
+  {
+    "question":"Who is the female member in the goup Three 6 Mafia?",
+    "guesses":["Gangsta Boo","Lil' Kim","Missy Elliott","Lauryn Hill"],
+    "answer":"Gangsta Boo"
+  },
+  {
+    "question":"What was rapper 2 Chainz formerly known as?",
+    "guesses":["2 Pistols","Dj Kool","Big Dawg","Tity Boi"],
+    "answer":"Tity Boi"
+  },
+  {
+    "question":"During a 10-day suspension from highschool, who recorded their first mixtape titled 10 Day",
+    "guesses":["Snoop Dogg","Chance the Rapper","Childish Gambino","Vic Mensa"],
+    "answer":"Chance the Rapper"
+  },
+  {
+    "question":"",
+    "guesses":["","","",""],
+    "answer":""
+  },
+  {
+    "question":"",
+    "guesses":["","","",""],
+    "answer":""
   }
 ];
 
@@ -96,13 +123,13 @@ function displayResult(status){
     incorrect++;
 
     $("#status").html('Nope!');
-    $("#status").append('<br>The correct guess was: ' + questions[currentQ].answer);
+    $("#status").append('<br>The correct answer was: ' + questions[currentQ].answer);
 
   } else if (status === 'timeup') {
     incomplete++;
 
     $("#status").html('Out of Time!');
-    $("#status").append('<br>The correct guess was: ' + questions[currentQ].answer);
+    $("#status").append('<br>The correct answer was: ' + questions[currentQ].answer);
     
   }
  
