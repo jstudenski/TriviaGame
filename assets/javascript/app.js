@@ -36,13 +36,7 @@ function newQuestion(q) {
 
   if (startGame === false) {
     $("#time-remaining").hide();
-
-    var btn = $("<button>");
-    btn.text("Start");
-    btn.click(newGame);
-
-    $("#guesses").append(btn);
-
+    makeStartBtn()
   } else {
     $("#time-remaining").show();
 
@@ -64,23 +58,13 @@ function newQuestion(q) {
 
 
 
-
-
-function test(){
-  console.log("123");
+function makeStartBtn(){
+  var btn = $("<button>");
+  btn.text("New Game");
+  btn.click(newGame);
+  btn.css("margin-left", "90px");
+  $("#guesses").append(btn);
 }
-// var myVar;
-
-// function myFunction() {
-//     myVar = setTimeout(alertFunc, 3000);
-// }
-
-// function alertFunc() {
-//     alert("Hello!");
-// }
-
-
-
 
 function newGame() {
   $("#status").empty();
@@ -132,19 +116,13 @@ function displayResult(status){
       $("#status").append('<br>Correct: ' + correct);
       $("#status").append('<br>Incorrect: ' + incorrect);
       $("#status").append('<br>Incomplete: ' + incomplete);
-
-      var btn = $("<button>");
-        btn.text("Start");
-        btn.click(newGame);
-        $("#guesses").append(btn);
-      }
+      makeStartBtn();
+    }
 
 
   }, 3000);
 
 }
-
-
 
 
 
