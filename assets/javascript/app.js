@@ -83,6 +83,7 @@ function test(){
 
 
 function newGame() {
+  $("#status").empty();
   startGame = true;
   currentQ = 0;
   $(this).hide();
@@ -131,7 +132,13 @@ function displayResult(status){
       $("#status").append('<br>Correct: ' + correct);
       $("#status").append('<br>Incorrect: ' + incorrect);
       $("#status").append('<br>Incomplete: ' + incomplete);
-    }
+
+      var btn = $("<button>");
+        btn.text("Start");
+        btn.click(newGame);
+        $("#guesses").append(btn);
+      }
+
 
   }, 3000);
 
