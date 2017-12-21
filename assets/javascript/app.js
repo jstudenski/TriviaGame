@@ -72,7 +72,7 @@ function newQuestion(q) {
 
   if (startGame === false) {
     $("#time-remaining").hide();
-    makeStartBtn()
+    makeStartBtn();
   } else {
     $("#time-remaining").show();
 
@@ -80,25 +80,24 @@ function newQuestion(q) {
 
     $("#question").html(questions[q].question);
 
+    var btn;
     for(i=0; i < questions[q].guesses.length; i++){
-      var btn = $("<button>");
-     //  btn.addClass("guess");
-      btn.attr("data-guess", questions[q].guesses[i]);
-      btn.text(questions[q].guesses[i]);
-      btn.click(checkGuess);
+      btn = $("<button>")
+        .attr("data-guess", questions[q].guesses[i])
+        .text(questions[q].guesses[i])
+        .click(checkGuess);
       $("#guesses").append(btn);
     }
-
-  };
-};
+  }
+}
 
 
 
 function makeStartBtn(){
-  var btn = $("<button>");
-  btn.text("New Game");
-  btn.click(newGame);
-  btn.css("margin-left", "90px");
+  var btn = $("<button>")
+    .text("New Game")
+    .click(newGame)
+    .css("margin-left", "90px");
   $("#guesses").append(btn);
 }
 
@@ -125,21 +124,17 @@ function displayResult(status){
 
   if (status === 'correct') {
     correct++;
-
     $("#status").html('Correct');
 
   } else if (status === 'incorrect') {
     incorrect++;
-
     $("#status").html('Nope!');
     $("#status").append('<br>The correct answer was: ' + questions[currentQ].answer);
 
   } else if (status === 'timeup') {
     incomplete++;
-
     $("#status").html('Out of Time!');
     $("#status").append('<br>The correct answer was: ' + questions[currentQ].answer);
-    
   }
 
   $('<img/>')
@@ -147,19 +142,17 @@ function displayResult(status){
     .attr('alt', questions[currentQ].answer)
     .width('250px')
     .appendTo($('#status'));
-  
-
- 
+   
   setTimeout(function(){
     $("#status").html('');
 
     if (currentQ < questions.length-1) {
       newQuestion(++currentQ);
     } else {
-      $("#status").html('Game is Over..');
-      $("#status").append('<br>Correct: ' + correct);
-      $("#status").append('<br>Incorrect: ' + incorrect);
-      $("#status").append('<br>Incomplete: ' + incomplete);
+      $("#status").html('Game is Over..')
+        .append('<br>Correct: ' + correct)
+        .append('<br>Incorrect: ' + incorrect)
+        .append('<br>Incomplete: ' + incomplete);
       makeStartBtn();
     }
 
@@ -167,7 +160,6 @@ function displayResult(status){
   }, 3000);
 
 }
-
 
 
 function startTimer() {
