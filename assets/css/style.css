@@ -4,7 +4,13 @@ font-family: 'Nunito', sans-serif;*/
 font-family: 'Francois One', sans-serif;
 background-color: #cbd2d6;
 
+}
 
+img {
+    margin-top: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
