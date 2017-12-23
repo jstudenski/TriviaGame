@@ -1,5 +1,3 @@
-// add new game button at the
-
 window.onload = function() {
 
 var startGame = false;
@@ -13,7 +11,6 @@ var incomplete = 0;
 var number;
 var intervalId;
 var currentQ = 0;
-
 
 var questions = [
   {
@@ -168,6 +165,5 @@ function decrement() {
 }
 
 newQuestion();
-
 
 } // window.onload
